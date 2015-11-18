@@ -181,8 +181,6 @@
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
-    </profiles>
-
 
   <repositories>
       <repository>
