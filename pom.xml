@@ -6,7 +6,7 @@
 
   <groupId>com.splunk.logging</groupId>
   <artifactId>splunk-library-javalogging</artifactId>
-  <version>1.5.0</version>
+  <version>1.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Splunk Logging for Java</name>
@@ -16,7 +16,10 @@
 
     <properties>
         <maven.resources.overwrite>true</maven.resources.overwrite>
+        <majorVersion>2015</majorVersion>
+		<minorVersion>8</minorVersion>	
     </properties>
+			
     <profiles>
         <profile>
             <id>Default</id>
@@ -109,6 +112,75 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+			<id>RELEASE</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>buildnumber-maven-plugin</artifactId>
+						<inherited>false</inherited>
+						<configuration>
+							<buildNumberPropertiesFileLocation>
+								buildNumber.properties
+							</buildNumberPropertiesFileLocation>
+							<doCheck>true</doCheck>
+							<doUpdate>true</doUpdate>
+							<format>${majorVersion}.${minorVersion}.{0,number}</format>
+							<items>
+								<item>buildNumber0</item>
+							</items>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<inherited>false</inherited>
+						<configuration>
+							<checkModificationExcludes>
+								<exclude>buildNumber.properties</exclude>
+								<exclude>pom.xml</exclude>
+								<exclude>pom.xml.versionsBackup</exclude>
+								<exclude>main.css</exclude>
+							</checkModificationExcludes>
+							<releaseVersion>${buildNumber}</releaseVersion>
+							<developmentVersion>${majorVersion}.${minorVersion}-SNAPSHOT</developmentVersion>
+							<updateDependencies>true</updateDependencies>
+							<suppressCommitBeforeTag>true
+							</suppressCommitBeforeTag>
+							<updateWorkingCopyVersions>false
+							</updateWorkingCopyVersions>
+							<remoteTagging>false</remoteTagging>
+							<tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
+						<!-- 	<tagBase>https://svn.gomocean.info/svn/prisma/prisma-ipa/tags</tagBase> -->
+							<username>jenkins</username>
+							<password>j1mghcy5F</password>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+	<distributionManagement>
+		<repository>
+			<id>dds-releases</id>
+			<name>DDS Releases</name>
+			<url>
+                http://nexus.rho.dds.net/nexus/content/repositories/dds-releases
+            </url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<snapshotRepository>
+			<id>dds-snapshots</id>
+			<name>DDS Snapshots</name>
+			<url>
+                http://nexus.rho.dds.net/nexus/content/repositories/dds-snapshots
+            </url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
     </profiles>
 
 
