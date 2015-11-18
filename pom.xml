@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.splunk.logging</groupId>
-  <artifactId>splunk-library-javalogging</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <artifactId>splunk-library-javalogging-MO</artifactId>
+  <version>1.5.0</version>
   <packaging>jar</packaging>
 
   <name>Splunk Logging for Java</name>
@@ -16,8 +16,6 @@
 
     <properties>
         <maven.resources.overwrite>true</maven.resources.overwrite>
-        <majorVersion>2015</majorVersion>
-		<minorVersion>8</minorVersion>	
     </properties>
 			
     <profiles>
@@ -112,54 +110,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-			<id>RELEASE</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>buildnumber-maven-plugin</artifactId>
-						<inherited>false</inherited>
-						<configuration>
-							<buildNumberPropertiesFileLocation>
-								buildNumber.properties
-							</buildNumberPropertiesFileLocation>
-							<doCheck>true</doCheck>
-							<doUpdate>true</doUpdate>
-							<format>${majorVersion}.${minorVersion}.{0,number}</format>
-							<items>
-								<item>buildNumber0</item>
-							</items>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<inherited>false</inherited>
-						<configuration>
-							<checkModificationExcludes>
-								<exclude>buildNumber.properties</exclude>
-								<exclude>pom.xml</exclude>
-								<exclude>pom.xml.versionsBackup</exclude>
-								<exclude>main.css</exclude>
-							</checkModificationExcludes>
-							<releaseVersion>${buildNumber}-MO</releaseVersion>
-							<developmentVersion>${majorVersion}.${minorVersion}-SNAPSHOT</developmentVersion>
-							<updateDependencies>true</updateDependencies>
-							<suppressCommitBeforeTag>true
-							</suppressCommitBeforeTag>
-							<updateWorkingCopyVersions>false
-							</updateWorkingCopyVersions>
-							<remoteTagging>false</remoteTagging>
-							<tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
-						<!-- 	<tagBase>https://svn.gomocean.info/svn/prisma/prisma-ipa/tags</tagBase> -->
-							<username>jenkins</username>
-							<password>j1mghcy5F</password>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 	</profiles>
 
 
@@ -267,6 +217,24 @@
 
 </dependencies>
 
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.1</version>
+        </plugin>
+        <plugin>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.8.1</version>
+            <configuration>
+                <tag>${project.artifactId}-${project.version}-MO</tag>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -294,12 +262,11 @@
       <email>fross@splunk.com</email>
     </contributor>
   </contributors>
-
   <scm>
-    <connection>scm:git:git@github.com:splunk/splunk-library-javalogging.git</connection>
-    <developerConnection>scm:git:git@github.com:splunk/splunk-library-javalogging.git</developerConnection>
+    <connection>scm:git:git@github.com:tommedge/splunk-library-javalogging.git</connection>
+    <developerConnection>scm:git:git@github.com:tommedge/splunk-library-javalogging.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://github.com/splunk/splunk-library-javalogging</url>
+    <url>https://github.com/tommedge/splunk-library-javalogging.git</url>
   </scm>
 
 
