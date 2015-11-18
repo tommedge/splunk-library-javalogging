@@ -143,7 +143,7 @@
 								<exclude>pom.xml.versionsBackup</exclude>
 								<exclude>main.css</exclude>
 							</checkModificationExcludes>
-							<releaseVersion>${buildNumber}</releaseVersion>
+							<releaseVersion>${buildNumber}-MO</releaseVersion>
 							<developmentVersion>${majorVersion}.${minorVersion}-SNAPSHOT</developmentVersion>
 							<updateDependencies>true</updateDependencies>
 							<suppressCommitBeforeTag>true
